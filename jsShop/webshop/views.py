@@ -4,10 +4,7 @@ from django import forms
 from django.shortcuts import render, get_object_or_404, get_list_or_404,render_to_response
 from django.contrib.auth.decorators import login_required
 from django.db import models
-<<<<<<< HEAD
-=======
 from .models import User, Game, Leaderboard, Payment
->>>>>>> 55d43a36ca97570524db6232cdf748253cd56a48
 from django.template import RequestContext, loader
 from webshop.forms import RegisterForm
 
@@ -29,8 +26,6 @@ def register(request):
 		args['form'] = RegisterForm()
 
 		return render_to_response('register.html', args)
-
-
 	#else:
 	#	form = RegisterForm()
 	#return render(request, "registration/login.html", {
