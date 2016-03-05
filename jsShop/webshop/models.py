@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class User(models.Model):
     name = models.CharField(max_length = 255)
@@ -12,6 +13,7 @@ class Game(models.Model):
     price = models.PositiveSmallIntegerField()
     tag = models.CharField(max_length = 255)
     link = models.URLField(max_length = 200)
+    description = models.TextField(max_length = 500)
 
 class Leaderboard(models.Model):
     player = models.ForeignKey(User)
