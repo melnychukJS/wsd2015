@@ -1,0 +1,25 @@
+{% extends "webshop/base.html" %}
+
+{% block title %}Welcome to JSshop!{% endblock %}
+{% block script %}$(function() {
+  $( "#tabs" ).tabs();
+});{% endblock %}
+
+{% block content %}
+<div id="tabs">
+  <ul>
+    <li><a href="#tabs-1">Profile</a></li>
+    <li><a href="#tabs-2">Games</a></li>
+    <li><a href="#tabs-3">Statistics</a></li>
+  </ul>
+  <div id="tabs-1">
+    <p></p>
+  </div>
+  <div id="tabs-2">
+    <p></p>
+  </div>
+  <div id="tabs-3">
+    <p></p>
+  </div>
+</div>
+{% endblock %}
