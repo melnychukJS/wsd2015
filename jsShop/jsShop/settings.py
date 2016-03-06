@@ -51,12 +51,15 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# URL of the login page.
+LOGIN_URL = '/'
+
 ROOT_URLCONF = 'jsShop.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': '/templates/webshop',
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,6 +88,8 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
+
+AUTH_PROFILE_MODULE = 'webshop.UserProfile'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
