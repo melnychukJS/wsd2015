@@ -21,5 +21,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^developer', views.developer),
     url(r'^home',views.home),
-    url(r'^user',views.user)
+    url(r'^user',views.user),
+    url(r'^add-game',views.add_game)
 ]
