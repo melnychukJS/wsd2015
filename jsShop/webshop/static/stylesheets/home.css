@@ -47,26 +47,35 @@ a:visited{
   padding: 0;
   right: 0;
 }
-#my-games-wrapper{
-  position: absolute;
-  top: 50px;
-}
-#browse-games-wrapper{
-  position: absolute;
-}
-#my-games-wrapper p{
-  margin: 0;
-}
-#my-games p{
+#my-games p, #browse-games p, #edit-user-profile p{
   font-family: Arial Helvetica;
   font-size: 30px;
   color: #591e23;
   font-weight: bold;
   padding-top: 5px;
+  margin: 0;
 }
 #tabs{
   margin-top: 50px;
 }
 #content{
   margin-top: 60px;
+}
+#myChart{
+  width:100%;
+}
+#add-game{
+  float: right;
+  padding: 5px;
+}
+#add-game a, #upload-game a{
+  color: #f2d8a7;
+  background-color: #591e23;
+  padding: 10px;
+  border: 1px solid #591e23;
+  border-radius: 7px;
+  box-shadow: inset 0 0 10px #D94E64;
+}
+th, td{
+  border: 1px solid black;
 }

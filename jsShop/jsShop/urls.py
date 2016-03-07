@@ -20,10 +20,11 @@ from webshop import views
 admin.autodiscover()
 
 urlpatterns = [
-	url(r'^admin/', admin.site.urls),
+    url(r'^admin/', admin.site.urls),
+    url(r'^developer', views.developer),
+    url(r'^home',views.home),
+    url(r'^user',views.user),
+    url(r'^add-game',views.add_game)
 	url(r'', include('webshop.urls')),
-	url(r'^developer', views.developer),
-	url(r'^home',views.home),
-	url(r'^user',views.user)
 
 ]

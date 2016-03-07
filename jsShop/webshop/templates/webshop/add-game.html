@@ -1,0 +1,33 @@
+{% extends "webshop/base.html" %}
+
+{% block title %}Welcome to JSshop!{% endblock %}
+
+{% block content %}
+  <div id="upload-game">
+    <form id="upload">
+      Title:<br>
+      <input type="text" name="title"></br>
+      Price:<br>
+      <input type="number" min="0" max="99.99" name="price"><br>
+      Link:<br>
+      <input type="url" name="url"><br>
+      <input type="submit"><br>
+    </form>
+    Genre:<br>
+    <select name="genres" form="upload">
+      <option>Action</option>
+      <option>Adventure</option>
+      <option>Arcade</option>
+      <option>Fighting</option>
+      <option>Mini</option>
+      <option>Puzzle</option>
+      <option>Racing</option>
+      <option>Shooter</option>
+      <option>Sport</option>
+      <option>Strategy</option>
+    </select><br>
+    Description:<br>
+    <textarea rows="4" cols="50" name="descr" form="upload">Enter description here</textarea><br>
+    <a href="developer.html">Cancel</a>
+  </div>
+{% endblock %}

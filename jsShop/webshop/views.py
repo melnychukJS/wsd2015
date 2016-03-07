@@ -49,3 +49,6 @@ def home(request):
 
 def user(request):
     return render_to_response('webshop/user.html')
+
+def add_game(request):
+    return render_to_response('webshop/add-game.html')
