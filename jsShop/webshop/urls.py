@@ -10,5 +10,5 @@ urlpatterns = [
             template_name='register.html',
             form_class=RegisterForm,
             success_url='/')),
-    #url(r'^logout/$', logout_page),
+    url(r'^registration/logout/$', 'django.contrib.auth.views.logout'),
 ]

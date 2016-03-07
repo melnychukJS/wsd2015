@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group, Permission
 
 
 class UserProfile(models.Model):
@@ -12,7 +12,7 @@ class Game(models.Model):
     price = models.PositiveSmallIntegerField()
     tag = models.CharField(max_length = 255)
     link = models.URLField(max_length = 200)
-    description = models.TextField(max_length = 500)
+    description = models.TextField(max_length = 500, default = 'Empty')
 
 class Leaderboard(models.Model):
 	player = models.ForeignKey(User)
@@ -23,3 +23,4 @@ class Payment(models.Model):
 	buyer = models.ForeignKey(User)
 	game = models.ForeignKey(Game)
 	time = models.DateTimeField(auto_now = False)
+
