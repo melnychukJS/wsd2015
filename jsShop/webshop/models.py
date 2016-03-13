@@ -10,9 +10,31 @@ class Game(models.Model):
     title = models.CharField(max_length = 255)
     author = models.ForeignKey(User)
     price = models.PositiveSmallIntegerField()
-    tag = models.CharField(max_length = 255)
+    Action='Action'
+    Adventure='Adventure'
+    Arcade='Arcade'
+    Fighting='Fighting'
+    Mini='Mini'
+    Puzzle='Puzzle'
+    Racing='Racing'
+    Shooter='Shooter'
+    Sport='Sport'
+    Strategy='Strategy'
+    Genres= (
+		(Action, 'Action'),
+		(Adventure, 'Adventure'),
+		(Arcade, 'Arcade'),
+		(Fighting, 'Fighting'),
+		(Mini, 'Mini'),
+		(Puzzle, 'Puzzle'),
+		(Racing, 'Racing'),
+		(Shooter, 'Shooter'),
+		(Sport, 'Sport'),
+		(Strategy, 'Strategy'),
+	)
+    tag = models.CharField(max_length = 255, choices = Genres)
     link = models.URLField(max_length = 200)
-    description = models.TextField(max_length = 500, default = 'Empty')
+    description = models.TextField(max_length = 500)
 
 class Leaderboard(models.Model):
 	player = models.ForeignKey(User)

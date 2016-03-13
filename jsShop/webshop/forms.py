@@ -1,9 +1,10 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User, Group
-from webshop.models import UserProfile
+from webshop.models import UserProfile, Game
+from django.forms import ModelForm
 
-
+# Registration form:
 class RegisterForm(UserCreationForm):
 	first_name = forms.CharField(max_length=255, required=True, label="first name")
 	last_name= forms.CharField(max_length=255, required=True, label="last name")
@@ -30,8 +31,22 @@ class RegisterForm(UserCreationForm):
 		#user_profile.save()
 		if user_profile.is_dev:
 			user.groups.add(Group.objects.get(name='Developers'))
+		else:
+			user.groups.add(Group.objects.get(name='Players'))
 		if commit:
 			user.save()
 			user_profile.save()
 		return user, user_profile
 
+#Add game form:
+class AddGameForm(ModelForm):
+	#title = forms.CharField(required=True, max_length = 255, label="Game title")
+	#description = forms.CharField(required=False, max_length = 500, label="Short game description")
+	#tag = forms.CharField(required=True, max_length = 255, label="Game category")
+	#link = forms.URLField(required=True, max_length = 200, label="Game URL")
+	#author = forms.CharField(required=True,max_length=User._meta.get_field('username').max_length)
+	#price = forms.DecimalField(required=True,label="Game price")
+
+	class Meta: 
+		model = Game
+		fields = ['title', 'tag', 'description', 'link', 'price']
