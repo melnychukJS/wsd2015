@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group, Permission
 
 
 class UserProfile(models.Model):
@@ -10,7 +10,29 @@ class Game(models.Model):
     title = models.CharField(max_length = 255)
     author = models.ForeignKey(User)
     price = models.PositiveSmallIntegerField()
-    tag = models.CharField(max_length = 255)
+    Action='Action'
+    Adventure='Adventure'
+    Arcade='Arcade'
+    Fighting='Fighting'
+    Mini='Mini'
+    Puzzle='Puzzle'
+    Racing='Racing'
+    Shooter='Shooter'
+    Sport='Sport'
+    Strategy='Strategy'
+    Genres= (
+		(Action, 'Action'),
+		(Adventure, 'Adventure'),
+		(Arcade, 'Arcade'),
+		(Fighting, 'Fighting'),
+		(Mini, 'Mini'),
+		(Puzzle, 'Puzzle'),
+		(Racing, 'Racing'),
+		(Shooter, 'Shooter'),
+		(Sport, 'Sport'),
+		(Strategy, 'Strategy'),
+	)
+    tag = models.CharField(max_length = 255, choices = Genres)
     link = models.URLField(max_length = 200)
     description = models.TextField(max_length = 500)
 
@@ -23,3 +45,4 @@ class Payment(models.Model):
 	buyer = models.ForeignKey(User)
 	game = models.ForeignKey(Game)
 	time = models.DateTimeField(auto_now = False)
+
