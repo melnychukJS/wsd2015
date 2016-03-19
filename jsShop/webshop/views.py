@@ -37,31 +37,39 @@ def about(request):
 	return HttpResponse("about page")
 
 def group_required(*group_names):
-    """
-    Requires user membership in at least one of the groups passed in.
+	"""
+	Requires user membership in at least one of the groups passed in.
 
-    Checks is_active and allows superusers to pass regardless of group
-    membership.
-    """
-    def in_group(u):
-        return u.is_active and (u.is_superuser or bool(u.groups.filter(name__in=group_names)))
-    return user_passes_test(in_group)
+	Checks is_active and allows superusers to pass regardless of group
+	membership.
+	"""
+	def in_group(u):
+		return u.is_active and (u.is_superuser or bool(u.groups.filter(name__in=group_names)))
+	return user_passes_test(in_group)
 
 def available_products(request):
-    available = get_list_or_404(Product,quantity__gt=0)
-    return render_to_response('webshop/product_list.html', {'products':available})
+	available = get_list_or_404(Product,quantity__gt=0)
+	return render_to_response('webshop/product_list.html', {'products':available})
 
 @login_required
 @group_required('Developers')
 def developer(request):
-    return render_to_response('webshop/developer.html')
+	owner=request.author
+	games=Game.objects.filter(author=owner)
+	return render(request, 'webshop/developer.html', {'games': games})
+
+#@login_required
+#@group_required('Developers')
+def game_page(request):	
+	game=Game.objects.filter(title=request.title)
+	return render(request, 'webshop/game.html', {'game': games})
 
 def home(request):
-    return render_to_response('webshop/home.html')
+	return render_to_response('webshop/home.html')
 
 @login_required
 def user(request):
-    return render_to_response('webshop/user.html')
+	return render_to_response('webshop/user.html')
 
 def isDeveloper(UserProfile):
 		if UserProfile.is_dev :
@@ -86,4 +94,12 @@ def add_game(request):
 
 	return render(request, 'webshop/add-game.html',{'form': form})
 
-
+#Deleting game
+@login_required
+@group_required('Developers')
+def remove_game(request, title):
+	rem=Game.objects.get('title')
+	author=request.user
+	if rem.author==author:
+		rem.delete()
+		return HttpResponse('Game deleted')
