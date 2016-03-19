@@ -53,6 +53,8 @@ MIDDLEWARE_CLASSES = [
 
 # URL of the login page.
 LOGIN_URL = '/'
+LOGIN_REDIRECT_URL = '/home'
+
 
 ROOT_URLCONF = 'jsShop.urls'
 

@@ -47,6 +47,6 @@ class AddGameForm(ModelForm):
 	#author = forms.CharField(required=True,max_length=User._meta.get_field('username').max_length)
 	#price = forms.DecimalField(required=True,label="Game price")
 
-	class Meta: 
+	class Meta:
 		model = Game
 		fields = ['title', 'tag', 'description', 'link', 'price']
