@@ -45,4 +45,3 @@ class Payment(models.Model):
 	buyer = models.ForeignKey(User)
 	game = models.ForeignKey(Game)
 	time = models.DateTimeField(auto_now = False)
-

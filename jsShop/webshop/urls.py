@@ -9,7 +9,7 @@ urlpatterns = [
 	url(r'^register/$', CreateView.as_view(
             template_name='register.html',
             form_class=RegisterForm,
-            success_url='/')),
+            success_url='home')),
     url(r'^registration/logout/$', 'django.contrib.auth.views.logout'),
     url(r'^test/$', views.add_game ),
 #    url(r'^test/$', CreateView.as_view(

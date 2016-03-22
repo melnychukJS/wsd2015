@@ -56,8 +56,14 @@ def home(request):
     return render_to_response('webshop/home.html')
 
 @login_required
-def game(request, gameid):
-	Game.objects.get(id=gameid)
+def game(request, id):
+	temp = Game.objects.get(id=int(id))
+	return render_to_response('webshop/game.html',{'temp':temp})
+
+@login_required
+def play(request, id):
+	temp = Game.objects.get(id=int(id))
+	return render_to_response('webshop/play.html',{'temp':temp})
 
 @login_required
 def user(request):

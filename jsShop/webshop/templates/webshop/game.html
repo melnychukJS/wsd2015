@@ -1,0 +1,15 @@
+{% extends "webshop/base.html" %}
+
+{% block title %}Welcome to JSshop!{% endblock %}
+
+{% block content %}
+  <div id="view-game">
+    <p>title: {{ temp.title }}</p>
+    <p>author: {{ temp.author }}</p>
+    <p>price: {{ temp.price }}</p>
+    <p>tag: {{temp.tag }}</p>
+    <p>description: {{ temp.description }}</p>
+    <a href="">BUY</a><br>
+    <a href="/home">Back to browsing</a>
+  </div>
+{% endblock %}
