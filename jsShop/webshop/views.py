@@ -44,7 +44,7 @@ def group_required(*group_names):
 @login_required
 @group_required('Developers')
 def developer(request):
-	owner=request.author
+	owner=request.user
 	games=Game.objects.filter(author=owner)
 	return render(request, 'webshop/developer.html', {'games': games})
 
@@ -54,8 +54,10 @@ def developer(request):
 #	game=Game.objects.filter(title=request.title)
 #	return render(request, 'webshop/game.html', {'game': games})
 
+@login_required
 def home(request):
-	return render_to_response('webshop/home.html')
+	games = Game.objects.all()
+	return render_to_response('webshop/home.html', {'games':games})
 
 @login_required
 def game(request, id):

@@ -19,11 +19,11 @@
   <div id="tabs-2">
     <div id="uploaded-games">
       <ul>
-       
+
         {% for game in games %}
         <h1><a href="webshop/game.html" value={{game.title}}>{{ game.title }}</a></h1>
-    <form action="{% webshop/game.html %}" method="POST">
-    <input id="submit" type="button" value="{{ game.title }} " name="{{ game.title }}" />       
+    <form action="webshop/game.html" method="POST">
+    <input id="submit" type="button" value="{{ game.title }} " name="{{ game.title }}" />
         {% endfor %}
       </ul>
     </div>
