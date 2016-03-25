@@ -61,9 +61,9 @@ def developer(request):
 
 #@login_required
 #@group_required('Developers')
-def game_page(request):	
-	game=Game.objects.filter(title=request.title)
-	return render(request, 'webshop/game.html', {'game': games})
+#def game_page(request):	
+#	game=Game.objects.filter(title=request)
+#	return render(request, 'webshop/game.html', {'game': games})
 
 def home(request):
 	return render_to_response('webshop/home.html')
