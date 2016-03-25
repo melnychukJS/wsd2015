@@ -26,6 +26,6 @@ urlpatterns = [
     url(r'^user',views.user),
     url(r'^add-game',views.add_game),
 	url(r'', include('webshop.urls')),
-	url(r'^game/id([0-9]+)/$',views.game)
-
+	url(r'^game/(?P<id>[0-9])',views.game),
+	url(r'^play/(?P<id>[0-9])',views.play)
 ]

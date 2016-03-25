@@ -15,7 +15,7 @@
     </p>
     <form role='form', action="" method="POST">{% csrf_token %}
         <div> Title: {{ form.title }} </div>
-         <br><br>      
+         <br><br>
           <div>Genre: {{ form.tag  }}</div>
          <br><br>
            <div>Description : {{ form.description }}</div>
@@ -26,9 +26,9 @@
          <br><br>
       <input type="submit" value="Add game">
        <br> <br>
-      <a href="developer.html">Cancel</a>
+      <a href="developer">Cancel</a>
        <br>
   </form>
  </body>
 </html>
-{% endblock %} 
+{% endblock %}

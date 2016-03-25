@@ -7,13 +7,14 @@
     <div id="my-games">
       <p>My games</p><br/>
       <ul>
-        <li>game1</li>
       </ul>
     </div>
     <div id="browse-games">
       <p>Browse games</p><br/>
       <ul>
-        <li>game1</li>
+        {% for g in games %}
+          <li><a href="{{ g.link }}">{{ g.title }}</a></li>
+        {% endfor %}
       </ul>
     </div>
   </div>

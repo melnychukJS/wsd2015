@@ -1,34 +1,26 @@
 {% extends "webshop/base.html" %}
 
-{% block title %}Welcome to JSshop!{% endblock %}
+{% block title %}Add a game{% endblock %}
 
 {% block content %}
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>add game page</title>
-  </head>
-  <body>
     <h1>Want to add a new game?</h1>
     <p>
       Please fill in the details:
     </p>
     <form role='form', action="" method="POST">{% csrf_token %}
         <div> Title: {{ form.title }} </div>
-         <br><br>      
+         <br><br>
           <div>Genre: {{ form.tag  }}</div>
          <br><br>
            <div>Description : {{ form.description }}</div>
           <br> <br>
            <div>Game link: {{ form.link  }}</div>
           <br><br>
-          <div> Price: {{form.price }}</div>
+          <div> Price: {{ form.price }}</div>
          <br><br>
       <input type="submit" value="Add game">
        <br> <br>
       <a href="developer.html">Cancel</a>
        <br>
   </form>
- </body>
-</html>
-{% endblock %} 
+{% endblock %}

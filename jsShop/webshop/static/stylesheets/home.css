@@ -79,3 +79,6 @@ a:visited{
 th, td{
   border: 1px solid black;
 }
+iframe{
+  width: 100%;
+}

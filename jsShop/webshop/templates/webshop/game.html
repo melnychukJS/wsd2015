@@ -3,18 +3,13 @@
 {% block title %}Welcome to JSshop!{% endblock %}
 
 {% block content %}
-  <div id="my-games-wrapper">
-    <div id="my-games">
-      <p>My games</p><br/>
-      <ul>
-        <li>game1</li>
-      </ul>
-    </div>
-    <div id="browse-games">
-      <p>Browse games</p><br/>
-      <ul>
-        <li>game1</li>
-      </ul>
-    </div>
+  <div id="view-game">
+    <p>title: {{ temp.title }}</p>
+    <p>author: {{ temp.author }}</p>
+    <p>price: {{ temp.price }}</p>
+    <p>tag: {{temp.tag }}</p>
+    <p>description: {{ temp.description }}</p>
+    <a href="">BUY</a><br>
+    <a href="/home">Back to browsing</a>
   </div>
 {% endblock %}
