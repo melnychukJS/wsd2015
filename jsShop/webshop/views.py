@@ -8,6 +8,10 @@ from .models import User, Game, Leaderboard, Payment
 from django.template import RequestContext, loader
 from webshop.forms import RegisterForm, AddGameForm
 from django.core.context_processors import csrf
+from django.views.generic import RedirectView
+from django.shortcuts import redirect
+
+
 
 def register(request):
 	if request.method == 'POST':
@@ -41,22 +45,32 @@ def group_required(*group_names):
 		return u.is_active and (u.is_superuser or bool(u.groups.filter(name__in=group_names)))
 	return user_passes_test(in_group)
 
+#function for checking if the user (u) belongs to group (name)
+def in_group(u, *group):  
+		return bool(u.groups.filter(name__in=group))
+
 @login_required
 @group_required('Developers')
 def developer(request):
 	owner=request.user
-	games=Game.objects.filter(author=owner)
+	games=Game.objects.filter(author=owner)   #only his games appear in his page
 	return render(request, 'webshop/developer.html', {'games': games})
+
+def userpage(request):
+	return render(request, 'webshop/user.html')	
+
+@login_required
+def user(request):
+	user1=request.user
+	if in_group(user1, 'Developers'):
+		return render(request, 'webshop/developer.html')
+	else:
+		return render(request, 'webshop/user.html')
 
 #@login_required
 #@group_required('Developers')
-<<<<<<< HEAD
 #def game_page(request):	
 #	game=Game.objects.filter(title=request)
-=======
-#def game_page(request):
-#	game=Game.objects.filter(title=request.title)
->>>>>>> da9204cab88746581876e2e68412f76705be9cee
 #	return render(request, 'webshop/game.html', {'game': games})
 
 @login_required
@@ -74,9 +88,9 @@ def play(request, id):
 	temp = Game.objects.get(id=int(id))
 	return render_to_response('webshop/play.html',{'temp':temp})
 
-@login_required
-def user(request):
-	return render_to_response('webshop/user.html')
+#@login_required
+#def user(request):
+#	return render_to_response('webshop/user.html')
 
 def isDeveloper(UserProfile):
 		if UserProfile.is_dev :
