@@ -13,7 +13,7 @@
       <p>Browse games</p><br/>
       <ul>
         {% for g in games %}
-          <li><a href="{{ g.link }}">{{ g.title }}</a></li>
+          <li><a href="/game/{{ g.id }}">{{ g.title }}</a></li>
         {% endfor %}
       </ul>
     </div>

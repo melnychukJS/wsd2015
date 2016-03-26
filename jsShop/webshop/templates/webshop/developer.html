@@ -24,11 +24,14 @@
         <h1><a href="webshop/game.html" value={{game.title}}>{{ game.title }}</a></h1>
     <form action="webshop/game.html" method="POST">
     <input id="submit" type="button" value="{{ game.title }} " name="{{ game.title }}" />
+    <a href="/del-game/{{ game.id }}" type="button">Delete game</a>
+
         {% endfor %}
       </ul>
     </div>
     <div id="add-game">
       <a href="add-game.html">Add game</a>
+
     </div>
   </div>
 

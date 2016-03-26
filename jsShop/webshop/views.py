@@ -63,7 +63,9 @@ def userpage(request):
 def user(request):
 	user1=request.user
 	if in_group(user1, 'Developers'):
-		return render(request, 'webshop/developer.html')
+		owner=request.user
+		games=Game.objects.filter(author=owner)   #only his games appear in his page
+		return render(request, 'webshop/developer.html', {'games': games})
 	else:
 		return render(request, 'webshop/user.html')
 
@@ -119,8 +121,8 @@ def add_game(request):
 #Deleting game
 @login_required
 @group_required('Developers')
-def remove_game(request, title):
-	rem=Game.objects.get('title')
+def remove_game(request, id):
+	rem=Game.objects.get(id=int(id))
 	author=request.user
 	if rem.author==author:
 		rem.delete()
