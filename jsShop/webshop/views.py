@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db import models
 from .models import User, Game, Leaderboard, Payment
 from django.template import RequestContext, loader
-from webshop.forms import RegisterForm, AddGameForm
+from webshop.forms import RegisterForm, AddGameForm, EditGameForm
 from django.core.context_processors import csrf
 from django.views.generic import RedirectView
 from django.shortcuts import redirect
@@ -127,3 +127,23 @@ def remove_game(request, id):
 	if rem.author==author:
 		rem.delete()
 		return HttpResponse('Game deleted')
+
+
+def edit_game(request, id):
+	game = Game.objects.get(pk=id)
+	form = EditGameForm(instance = game)
+	author = request.user
+	if request.method == 'POST':
+		form = EditGameForm(request.POST)
+		if form.is_valid():
+			form = EditGameForm(request.POST, instance = game)
+			form.save()
+			return HttpResponseRedirect('/developer.html') #have to change !!!!
+		else: 
+			game = Game.objects.get(pk = id)       
+			form = EditGameForm(instance=game)
+
+	return render(request, 'webshop/edit-game.html',{'form': form})
+
+
+

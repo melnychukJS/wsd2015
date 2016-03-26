@@ -26,7 +26,8 @@
 
    <!--- <form action="webshop/game.html" method="POST">
     <input id="submit" type="button" value="{{ game.title }} " name="{{ game.title }}" />    -->
-
+    <a href="/edit-game/{{ game.id }}" type="button">Edit game</a>
+    <br>
     <a href="/del-game/{{ game.id }}" type="button">Delete game</a>
 
         {% endfor %}

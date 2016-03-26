@@ -50,3 +50,15 @@ class AddGameForm(ModelForm):
 	class Meta:
 		model = Game
 		fields = ['title', 'tag', 'picture', 'description', 'link', 'price']
+
+class EditGameForm(ModelForm):
+	#title = forms.CharField(required=True, max_length = 255, label="Game title")
+	#description = forms.CharField(required=False, max_length = 500, label="Short game description")
+	#tag = forms.CharField(required=True, max_length = 255, label="Game category")
+	#link = forms.URLField(required=True, max_length = 200, label="Game URL")
+	#author = forms.CharField(required=True,max_length=User._meta.get_field('username').max_length)
+	#price = forms.DecimalField(required=True,label="Game price")
+
+	class Meta:
+		model = Game
+		fields = ['title', 'tag', 'picture', 'description', 'link', 'price']		

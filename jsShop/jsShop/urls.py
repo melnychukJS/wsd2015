@@ -28,5 +28,7 @@ urlpatterns = [
 	url(r'', include('webshop.urls')),
 	url(r'^game/(?P<id>[0-9])/$',views.game),
 	url(r'^play/(?P<id>[0-9])',views.play),
-	url(r'^del-game/(?P<id>[0-9])/$',views.remove_game)
+	url(r'^del-game/(?P<id>[0-9])/$',views.remove_game),
+	url(r'^edit-game/(?P<id>[0-9])/$',views.edit_game)
+
 ]
