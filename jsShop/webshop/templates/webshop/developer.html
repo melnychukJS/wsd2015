@@ -21,9 +21,12 @@
       <ul>
 
         {% for game in games %}
-        <h1><a href="webshop/game.html" value={{game.title}}>{{ game.title }}</a></h1>
-    <form action="webshop/game.html" method="POST">
-    <input id="submit" type="button" value="{{ game.title }} " name="{{ game.title }}" />
+        <h1><a href="/game/{{ game.id }}" value={{game.title}}>{{ game.title }}</a></h1>
+            <img src="{{ game.picture }}"  height="142" width="142" / >
+
+   <!--- <form action="webshop/game.html" method="POST">
+    <input id="submit" type="button" value="{{ game.title }} " name="{{ game.title }}" />    -->
+
     <a href="/del-game/{{ game.id }}" type="button">Delete game</a>
 
         {% endfor %}

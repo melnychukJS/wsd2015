@@ -49,4 +49,4 @@ class AddGameForm(ModelForm):
 
 	class Meta:
 		model = Game
-		fields = ['title', 'tag', 'description', 'link', 'price']
+		fields = ['title', 'tag', 'picture', 'description', 'link', 'price']
