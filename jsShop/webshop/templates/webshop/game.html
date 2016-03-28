@@ -10,7 +10,12 @@
     <p>price: {{ temp.price }}</p>
     <p>tag: {{temp.tag }}</p>
     <p>description: {{ temp.description }}</p>
-    <a href="">BUY</a><br>
+
+    <form action="http://payments.webcourse.niksula.hut.fi/pay/" method="POST">
+        <input id="submit" type="button" value="BUY" name="buy" />
+    </form>
+
+    </br>
     <a href="/home">Back to browsing</a>
   </div>
 {% endblock %}

@@ -46,3 +46,13 @@ class Payment(models.Model):
 	buyer = models.ForeignKey(User)
 	game = models.ForeignKey(Game)
 	time = models.DateTimeField(auto_now = False)
+	def _init_(self, buyer, game, time):
+		self.buyer = buyer
+		self.game = game
+		self.time = time
+	def get_success_url(self):
+		return 'webshop/home.html'
+	def get_error_url(self):
+		return 'webshop/home.html'
+	def get_cancel_url(self):
+		return 'webshop/home.html'
