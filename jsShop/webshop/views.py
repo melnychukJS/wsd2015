@@ -10,6 +10,7 @@ from webshop.forms import RegisterForm, AddGameForm, EditGameForm
 from django.core.context_processors import csrf
 from django.views.generic import RedirectView
 from django.shortcuts import redirect
+from django.db.models import Count
 
 
 
@@ -28,11 +29,7 @@ def register(request):
 		args['form'] = RegisterForm()
 
 		return render_to_response('register.html', args)
-	#else:
-	#	form = RegisterForm()
-	#return render(request, "registration/login.html", {
-	#	'form': form,
-	#})
+
 
 def group_required(*group_names):
 	"""
@@ -52,12 +49,28 @@ def in_group(u, *group):
 @login_required
 @group_required('Developers')
 def developer(request):
+	no_list=[]
 	owner=request.user
+	temp='foo'
 	games=Game.objects.filter(author=owner)   #only his games appear in his page
-	return render(request, 'webshop/developer.html', {'games': games})
+	i=1
+	no = Payment.objects.annotate(sales=Count('game'))
 
-def userpage(request):
-	return render(request, 'webshop/user.html')	
+	for game in games:
+		no = Payment.objects.annotate(sales=Count('game'))
+
+	#	temp=Game.objects.get(title=title)
+		#temp1=Game.objects.filter(title=temp).
+		#no = Payment.objects.filter(game=game).count
+		#no_list.extend(list(no)
+		no_list.append(no)
+	#no=5
+	#no=Game.objects.get(title=string(title))	
+	return render(request, 'webshop/developer.html', {'games': games, 'no_list':no_list})
+
+def userpage(request, name):
+	no = Payment.objects.filter(game=name).count
+	return render(request, 'test.html',{'no':no})	
 
 @login_required
 def user(request):
@@ -89,6 +102,12 @@ def game(request, id):
 def play(request, id):
 	temp = Game.objects.get(id=int(id))
 	return render_to_response('webshop/play.html',{'temp':temp})
+
+def game_sales(request):
+#	no = Payment.objects.filter(game=name).count
+	no = 5
+	
+	return render_to_response(request, 'test.html', {'no':no})
 
 #@login_required
 #def user(request):
@@ -128,7 +147,7 @@ def remove_game(request, id):
 		rem.delete()
 		return HttpResponse('Game deleted')
 
-
+#Editing existing game
 def edit_game(request, id):
 	game = Game.objects.get(pk=id)
 	form = EditGameForm(instance = game)
@@ -144,6 +163,5 @@ def edit_game(request, id):
 			form = EditGameForm(instance=game)
 
 	return render(request, 'webshop/edit-game.html',{'form': form})
-
 
 
