@@ -13,29 +13,41 @@
     <li><a href="#tabs-3">Statistics</a></li>
   </ul>
   <div id="tabs-1">
-
+    <p>Edit my user profile</p>
   </div>
 
   <div id="tabs-2">
     <div id="uploaded-games">
-      <ul>
+      <div id="add-game">
+        <a href="/developer">Add game</a>
+      </div>
 
+      <div id="my-games">
         {% for game in games %}
-        <h1><a href="/game/{{ game.id }}" value={{game.title}}>{{ game.title }}</a></h1>
-            <img src="{{ game.picture }}"  height="142" width="142" / >
-
-   <!--- <form action="webshop/game.html" method="POST">
-    <input id="submit" type="button" value="{{ game.title }} " name="{{ game.title }}" />    -->
-    <a href="/edit-game/{{ game.id }}" type="button">Edit game</a>
-    <br>
-    <a href="/del-game/{{ game.id }}" type="button">Delete game</a>
-
+          <div id="game-view">
+            <a href="/game/{{ game.id }}">
+              <img src="{{ game.picture }}">
+            </a>
+              <figcaption>
+                <a href="/game/{{ game.id }}">
+                  {{ game.title }}
+                </a><br/>
+                <a href="/edit-game/{{ game.id }}" type="button">Edit game</a><br/>
+                <a href="/del-game/{{ game.id }}" type="button">Delete game</a>
+              </figcaption>
+          </div>
         {% endfor %}
-      </ul>
-    </div>
-    <div id="add-game">
-      <a href="add-game.html">Add game</a>
+      </div>
 
+        <!--{% for game in games %}
+
+        <a href="/game/{{ game.id }}" value={{game.title}}>
+          <p class="gametitle">{{ game.title }}</p>
+        </a>
+        <img src="{{ game.picture }}" / >
+        <a href="/edit-game/{{ game.id }}" type="button">Edit game</a><br/>
+        <a href="/del-game/{{ game.id }}" type="button">Delete game</a>
+        {% endfor %}-->
     </div>
   </div>
 

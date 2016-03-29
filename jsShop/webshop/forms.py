@@ -6,12 +6,12 @@ from django.forms import ModelForm
 
 # Registration form:
 class RegisterForm(UserCreationForm):
-	first_name = forms.CharField(max_length=255, required=True, label="first name")
-	last_name= forms.CharField(max_length=255, required=True, label="last name")
+	first_name = forms.CharField(max_length=255, required=True, label="First name")
+	last_name= forms.CharField(max_length=255, required=True, label="Last name")
 	email = forms.EmailField(required=True, label = "Email")
-	is_dev= forms.BooleanField(required=False, label="is_dev")
-	password1= forms.CharField(required=True, label='enter password')
-	password2= forms.CharField(required=True, label='enter password again')
+	is_dev= forms.BooleanField(required=False, label="Are you a developer?")
+	password1= forms.CharField(required=True, label='Enter password')
+	password2= forms.CharField(required=True, label='Enter password again')
 
 	class Meta:
 		model = User
@@ -55,4 +55,4 @@ class EditGameForm(ModelForm):
 	
 	class Meta:
 		model = Game
-		fields = ['title', 'tag', 'picture', 'description', 'link', 'price']		
+		fields = ['title', 'tag', 'picture', 'description', 'link', 'price']

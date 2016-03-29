@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>login page</title>
+    <title>Register in JS shop!</title>
+    <link href="/static/stylesheets/register.css" rel="stylesheet" type="text/css">
   </head>
   <body>
-    <h1>login leme</h1>
-    <p>
-    	here will be the login form
-    </p>
-<form action="" method="post">{% csrf_token %}
-      {{ form.as_p }}
-      <input type="submit" value="Create the account">
-  </form>
-
-
-
+    <div id="container">
+      <h1>Registration</h1>
+      <p>Fill in the fields below</p>
+      <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Create the account">
+      </form>
+    </div>
  </body>
 </html>
