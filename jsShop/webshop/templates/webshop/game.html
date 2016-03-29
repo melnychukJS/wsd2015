@@ -4,13 +4,21 @@
 
 {% block content %}
   <div id="view-game">
-    <p>title: {{ temp.title }}</p>
-    <img src="{{ temp.picture }}"  height="142" width="142" / >
-    <p>author: {{ temp.author }}</p>
-    <p>price: {{ temp.price }}</p>
-    <p>tag: {{temp.tag }}</p>
-    <p>description: {{ temp.description }}</p>
-    <a href="">BUY</a><br>
-    <a href="/home">Back to browsing</a>
+    <p class="gametitle">{{ temp.title }}</p><br/>
+    <div id="container">
+      <img src="{{ temp.picture }}" height=100px/ >
+      <div class="emptyspace"></div>
+      <div>
+        <p>Author: {{ temp.author }}</p>
+        <p>Price: {{ temp.price }}</p>
+        <p>Tag: {{temp.tag }}</p>
+        <p>Description: {{ temp.description }}</p>
+        <div id="actions">
+          <a href="">BUY</a><br/>
+          <div class="emptyspace"></div>
+          <a href="/home">Back to browsing</a>
+        </div>
+      </div>
+    </div>
   </div>
 {% endblock %}

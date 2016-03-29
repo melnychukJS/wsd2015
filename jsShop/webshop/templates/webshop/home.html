@@ -6,16 +6,37 @@
   <div id="my-games-wrapper">
     <div id="my-games">
       <p>My games</p><br/>
-      <ul>
-      </ul>
+      <div id="bought-game-list">
+        <!--{% for g in games %}
+          <div id="game-instance">
+            <a href="/game/{{ g.id }}">
+              <img src="{{ g.picture }}">
+              <figcaption>
+                <a href="/game/{{ g.id }}">
+                  {{ g.title }}
+                </a>
+              </figcaption>
+            </a>
+          </div>
+        {% endfor %}-->
+      </div>
     </div>
     <div id="browse-games">
       <p>Browse games</p><br/>
-      <ul>
+      <div id="game-list">
         {% for g in games %}
-          <li><a href="/game/{{ g.id }}">{{ g.title }}</a></li>
+          <div id="game-instance">
+            <a href="/game/{{ g.id }}">
+              <img src="{{ g.picture }}">
+              <figcaption>
+                <a href="/game/{{ g.id }}">
+                  {{ g.title }}
+                </a>
+              </figcaption>
+            </a>
+          </div>
         {% endfor %}
-      </ul>
+      </div>
     </div>
   </div>
 {% endblock %}

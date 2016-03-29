@@ -46,7 +46,7 @@ def group_required(*group_names):
 	return user_passes_test(in_group)
 
 #function for checking if the user (u) belongs to group (name)
-def in_group(u, *group):  
+def in_group(u, *group):
 		return bool(u.groups.filter(name__in=group))
 
 @login_required
@@ -57,21 +57,21 @@ def developer(request):
 	return render(request, 'webshop/developer.html', {'games': games})
 
 def userpage(request):
-	return render(request, 'webshop/user.html')	
+	return render(request, 'webshop/user.html')
 
 @login_required
 def user(request):
 	user1=request.user
 	if in_group(user1, 'Developers'):
 		owner=request.user
-		games=Game.objects.filter(author=owner)   #only his games appear in his page
+		games=Game.objects.filter(author=owner)   #only his games appear in his page		
 		return render(request, 'webshop/developer.html', {'games': games})
 	else:
 		return render(request, 'webshop/user.html')
 
 #@login_required
 #@group_required('Developers')
-#def game_page(request):	
+#def game_page(request):
 #	game=Game.objects.filter(title=request)
 #	return render(request, 'webshop/game.html', {'game': games})
 
@@ -138,12 +138,9 @@ def edit_game(request, id):
 		if form.is_valid():
 			form = EditGameForm(request.POST, instance = game)
 			form.save()
-			return HttpResponseRedirect('/developer.html') #have to change !!!!
-		else: 
-			game = Game.objects.get(pk = id)       
+			return HttpResponseRedirect('webshop/developer.html') #have to change !!!!
+		else:
+			game = Game.objects.get(pk = id)
 			form = EditGameForm(instance=game)
 
 	return render(request, 'webshop/edit-game.html',{'form': form})
-
-
-

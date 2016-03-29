@@ -1,0 +1,21 @@
+*{
+  font-family: Arial;
+}
+#container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+#caption{
+  padding: 25px;
+}
+table{
+  padding: 5px;
+  border-spacing: 10px;
+  border-collapse: separate;
+}
+#register{
+  padding: 25px;
+}
