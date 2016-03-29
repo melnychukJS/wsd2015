@@ -14,7 +14,9 @@
         <p>Tag: {{temp.tag }}</p>
         <p>Description: {{ temp.description }}</p>
         <div id="actions">
-          <a href="">BUY</a><br/>
+          <form action="http://payments.webcourse.niksula.hut.fi/pay/" method="POST">
+              <input id="submit" type="button" value="BUY" name="buy" />
+          </form>
           <div class="emptyspace"></div>
           <a href="/home">Back to browsing</a>
         </div>

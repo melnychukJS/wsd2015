@@ -10,8 +10,8 @@ from webshop.forms import RegisterForm, AddGameForm, EditGameForm
 from django.core.context_processors import csrf
 from django.views.generic import RedirectView
 from django.shortcuts import redirect
-
-
+from datetime import datetime
+from hashlib import md5
 
 def register(request):
 	if request.method == 'POST':
@@ -64,7 +64,7 @@ def user(request):
 	user1=request.user
 	if in_group(user1, 'Developers'):
 		owner=request.user
-		games=Game.objects.filter(author=owner)   #only his games appear in his page		
+		games=Game.objects.filter(author=owner)   #only his games appear in his page
 		return render(request, 'webshop/developer.html', {'games': games})
 	else:
 		return render(request, 'webshop/user.html')
@@ -144,3 +144,20 @@ def edit_game(request, id):
 			form = EditGameForm(instance=game)
 
 	return render(request, 'webshop/edit-game.html',{'form': form})
+
+# Buy a new game
+@login_required
+@group_required('Players')
+def pay(request, game_id):
+	if "buy" in request.POST:
+		game = Game.objects.get(pk = id)
+		buyer = request.user
+		payment = Payment(buyer, game, str(datetime.now()))
+		pid = payment.id
+		sid = "jsShop"
+		amount = game.price
+		success_url = payment.get_success_url()
+		cancel_url = payment.get_cancel_url()
+		checksumstr = "pid={}&sid={}&amount={}&token={}".format(pid, sid, amount, "e9abd406499c46c34f457b17b9c97a2b")
+		m = md5(checksumstr.encode("ascii"))
+		checksum = m.hexdigest()
