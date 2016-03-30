@@ -3,8 +3,11 @@
 {% block title %}Welcome to JSshop!{% endblock %}
 
 {% block content %}
+{% load staticfiles %}
   <div id="play-game">
-    <p id="gametitle">{{ temp.title }}</p><br>
-    <iframe src="{{ temp.link }}"></iframe>
+    <p class="gametitle">{{ temp.title }}</p><br/>
+    <iframe id="frame" src="{{ temp.link }}"></iframe><br/><br/>
+    <a href="">Leaderboard</a>
   </div>
+  <script src="{% static "JS/play.js" %}"></script>
 {% endblock %}
