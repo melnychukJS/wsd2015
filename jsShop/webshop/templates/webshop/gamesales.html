@@ -1,0 +1,21 @@
+{% extends "webshop/base.html" %}
+
+{% block title %}Game sales{% endblock title %}
+
+{% block content %}
+	<div class="game-sales-total">
+		<h2>{{game_title}}</h2>
+		{{g}}
+		<br>
+		{{g1}}
+		{{profit}}
+		<br>
+		{{sales}}
+		<br>
+		Purchased <b>{{sold}}</b> times.<br>
+		<!--- Net sales: <b>{{net_sales}}</b> €  -->
+		<br>
+	</div>
+
+
+{% endblock content %}

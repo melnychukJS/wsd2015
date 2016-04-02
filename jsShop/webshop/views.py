@@ -57,7 +57,7 @@ def developer(request):
 	no = Payment.objects.annotate(sales=Count('game'))
 
 	for game in games:
-		no = Payment.objects.annotate(sales=Count('game'))
+		no = Payment.objects.annotate(sales=Count('game')).values
 
 	#	temp=Game.objects.get(title=title)
 		#temp1=Game.objects.filter(title=temp).
@@ -148,6 +148,8 @@ def remove_game(request, id):
 		return HttpResponse('Game deleted')
 
 #Editing existing game
+@login_required
+@group_required('Developers')
 def edit_game(request, id):
 	game = Game.objects.get(pk=id)
 	form = EditGameForm(instance = game)
@@ -163,6 +165,17 @@ def edit_game(request, id):
 			form = EditGameForm(instance=game)
 
 	return render(request, 'webshop/edit-game.html',{'form': form})
+
+def gameSales(request):
+
+	if request.method == 'POST' and 'view_sales_of' in request.POST:
+		g = Game.objects.filter(id=request.POST["view_sales_of"])
+		g1 = Game.objects.filter(id=request.POST["view_sales_of"]).values
+		sales = Payment.objects.filter(game=g).values()
+		sold = len(sales)
+		params = {"game_title": request.POST['view_sales_of'],'g' :g,'g1' :g1,'sales': sales,  "sold": sold}
+		return render(request, 'webshop/gamesales.html', params)
+
 
 # Buy a new game
 @login_required

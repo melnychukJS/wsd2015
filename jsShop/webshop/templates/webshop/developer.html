@@ -34,6 +34,12 @@
                 </a><br/>
                 <a href="/edit-game/{{ game.id }}" type="button">Edit game</a><br/>
                 <a href="/del-game/{{ game.id }}" type="button">Delete game</a>
+                <td>
+                <form name="edit" action="/games/sales/" method="post"> {% csrf_token %}
+                  <input type="hidden" name="view_sales_of" value="{{game.id}}">
+                  <input type="submit"  class="btn" name="submit-sales" value="Sales">
+                </form>
+              </td>
               </figcaption>
           </div>
         {% endfor %}
