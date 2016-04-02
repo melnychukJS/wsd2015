@@ -27,7 +27,7 @@
         {% for g in games %}
           <div id="game-instance">
             <a href="/game/{{ g.id }}">
-              <img src="{{ g.picture }}">
+              <img src="{{ g.picture }}"  style="width:300px;height:300px">
               <figcaption>
                 <a href="/game/{{ g.id }}">
                   {{ g.title }}

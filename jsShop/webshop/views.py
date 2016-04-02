@@ -170,10 +170,18 @@ def gameSales(request):
 
 	if request.method == 'POST' and 'view_sales_of' in request.POST:
 		g = Game.objects.filter(id=request.POST["view_sales_of"])
-		g1 = Game.objects.filter(id=request.POST["view_sales_of"]).values
+		g_price = Game.objects.filter(id=request.POST["view_sales_of"]).values('price')[0]
+		g_title=Game.objects.filter(id=request.POST["view_sales_of"]).values('title')[0]
+		title = g_title['title']
+		price = g_price['price']
 		sales = Payment.objects.filter(game=g).values()
 		sold = len(sales)
-		params = {"game_title": request.POST['view_sales_of'],'g' :g,'g1' :g1,'sales': sales,  "sold": sold}
+		gain = sold * price 
+		time_list = list()
+		time_format = '%d-%m-%Y %H:%M:%S'
+		for i in range(0, sold):
+			time_list.append(sales[i]['time'].strftime(time_format))
+		params = {"game_title": request.POST['view_sales_of'],'price' :price,'sales': sales, "title":title,  "sold": sold, "time_list": time_list, 'gain':gain}
 		return render(request, 'webshop/gamesales.html', params)
 
 

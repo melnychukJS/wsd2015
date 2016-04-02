@@ -4,16 +4,20 @@
 
 {% block content %}
 	<div class="game-sales-total">
-		<h2>{{game_title}}</h2>
-		{{g}}
+		<h2>{{title}}</h2>
+		
+		Game price: {{price}}
+		<br><br>
+		Purchased <b>{{sold}}</b> times.
+		<br><br>
+		Gain: <b>{{gain}}</b>
+		<br><br>
+		Purchase time:
 		<br>
-		{{g1}}
-		{{profit}}
-		<br>
-		{{sales}}
-		<br>
-		Purchased <b>{{sold}}</b> times.<br>
-		<!--- Net sales: <b>{{net_sales}}</b> €  -->
+		{%for time in time_list%}
+			{{time}}
+			<br>
+		{%endfor%}
 		<br>
 	</div>
 
