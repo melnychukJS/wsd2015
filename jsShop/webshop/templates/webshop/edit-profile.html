@@ -1,0 +1,18 @@
+{% extends "webshop/base.html" %}
+
+{% block title %}Add a game{% endblock %}
+
+{% block content %}
+    <h1>Want to edit your profile?</h1>
+    <p>
+      Please correct  the details:
+    </p>
+    <form role='form', action="" method="POST">{% csrf_token %}
+        <div  > Name: {{ form.title }} </div>
+         <br><br>
+          
+      <input type="submit" value="Edit game">
+       <br> <br>
+       <br>
+  </form>
+{% endblock %}

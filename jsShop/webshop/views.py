@@ -80,7 +80,8 @@ def user(request):
 		games=Game.objects.filter(author=owner)   #only his games appear in his page
 		return render(request, 'webshop/developer.html', {'games': games})
 	else:
-		return render(request, 'webshop/user.html')
+
+		return render(request, 'webshop/user.html', {'user1':user1})
 
 #@login_required
 #@group_required('Developers')
@@ -91,7 +92,15 @@ def user(request):
 @login_required
 def home(request):
 	games = Game.objects.all()
-	return render_to_response('webshop/home.html', {'games':games})
+	user1=request.user
+	game_list=list ()
+	payments = Payment.objects.filter(buyer=user1).values_list('game', flat=True) # quering the game the user has bought
+	#payments1 = payments[0]
+	for pay in payments:
+		g= Game.objects.get(id=int(pay))
+		game_list.append(g)
+
+	return render_to_response('webshop/home.html', {'games':games, 'payments':payments, 'game_list': game_list})
 
 @login_required
 def game(request, id):
@@ -103,19 +112,11 @@ def play(request, id):
 	temp = Game.objects.get(id=int(id))
 	return render_to_response('webshop/play.html',{'temp':temp})
 
-def game_sales(request):
-#	no = Payment.objects.filter(game=name).count
-	no = 5
-	
-	return render_to_response(request, 'test.html', {'no':no})
+@login_required
+def user_profile(request, id):
+	usr=request.user
+	return render_to_response('webshop/game.html',{'usr':usr})
 
-#@login_required
-#def user(request):
-#	return render_to_response('webshop/user.html')
-
-def isDeveloper(UserProfile):
-		if UserProfile.is_dev :
-			return True
 
 #Adding game
 @login_required
@@ -166,8 +167,19 @@ def edit_game(request, id):
 
 	return render(request, 'webshop/edit-game.html',{'form': form})
 
-def gameSales(request):
+def edit_user_profile(request):
+	usr=request.userpage
+	form=EditProfileForm(instance=usr)
+	if request.method == 'POST':
+		form = EditProfileForm(request.POST)
+		if form.is_valid():
+			form = EditProfileForm(request.POST, instance = usr)
+			form.save()
+	return render (request, 'webshop/edit_profile.html', {'form: form'})
 
+
+# game sales statistics
+def gameSales(request):
 	if request.method == 'POST' and 'view_sales_of' in request.POST:
 		g = Game.objects.filter(id=request.POST["view_sales_of"])
 		g_price = Game.objects.filter(id=request.POST["view_sales_of"]).values('price')[0]

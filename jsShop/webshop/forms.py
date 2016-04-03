@@ -38,6 +38,12 @@ class RegisterForm(UserCreationForm):
 			user_profile.save()
 		return user, user_profile
 
+class EditProfileForm(RegisterForm):
+	class Meta: 
+		model = User
+		fields = ("first_name","last_name", "username", "email")
+
+
 #Add game form:
 class AddGameForm(ModelForm):
 	#title = forms.CharField(required=True, max_length = 255, label="Game title")

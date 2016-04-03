@@ -30,6 +30,7 @@ urlpatterns = [
 	url(r'^play/(?P<id>[0-9])',views.play),
 	url(r'^del-game/(?P<id>[0-9])/$',views.remove_game),
 	url(r'^edit-game/(?P<id>[0-9])/$',views.edit_game),
+	url(r'^edit-profile',views.edit_user_profile),
 	#url(r'^gamesales/(?P<id>[0-9])/$', views.gameSales),
 	url(r'^games/sales/$', views.gameSales),
 
