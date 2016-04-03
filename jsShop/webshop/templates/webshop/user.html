@@ -5,6 +5,11 @@
 {% block content %}
 	{{user1}}
   <div id="edit-user-profile">
+                <form name="edit" action="/games/sales/" method="post"> {% csrf_token %}
+                  <input type="hidden" name="view_sales_of" >
+                  <input type="submit"   name="submit-sales" value="Sales">
+                </form>
+
     <p>Edit user profile</p>
   </div>
 {% endblock %}

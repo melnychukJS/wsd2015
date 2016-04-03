@@ -56,3 +56,8 @@ class Payment(models.Model):
 		return 'webshop/home.html'
 	def get_cancel_url(self):
 		return 'webshop/home.html'
+
+class Save(models.Model):
+	player = models.ForeignKey(User)
+	game = models.ForeignKey(Game)
+	game_state = models.TextField()

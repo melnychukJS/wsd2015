@@ -13,6 +13,8 @@ from django.shortcuts import redirect
 from django.db.models import Count
 from datetime import datetime
 from hashlib import md5
+from django.contrib import messages
+
 
 def register(request):
 	if request.method == 'POST':
@@ -109,8 +111,13 @@ def game(request, id):
 
 @login_required
 def play(request, id):
+	usr=request.user 
 	temp = Game.objects.get(id=int(id))
-	return render_to_response('webshop/play.html',{'temp':temp})
+	perm = Payment.objects.filter(game=temp, buyer=usr).exists()  # user can play only if he has bought the game
+	if not perm: 
+		messages.error(request, "You have to buy the game in order to play it! :(")  # we need to create a redirection here
+	else:
+		return render_to_response('webshop/play.html',{'temp':temp})
 
 @login_required
 def user_profile(request, id):
