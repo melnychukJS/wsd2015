@@ -14,8 +14,16 @@
         <p>Tag: {{temp.tag }}</p>
         <p>Description: {{ temp.description }}</p>
         <div id="actions">
-          <form action="http://payments.webcourse.niksula.hut.fi/pay/" method="POST">
-              <input id="submit" type="button" value="BUY" name="pay" />
+          <form action="http://payments.webcourse.niksula.hut.fi/pay/" method="POST" name="buy">
+            <input type="hidden" name="pid" value={{pid}} />
+            <input type="hidden" name="sid" value={{sid}} />
+            <input type="hidden" name="amount" value={{amoun}} />
+            <input type="hidden" name="success_url" value={{success_url}} />
+            <input type="hidden" name="cancel_url" value={{cancel_url}} />
+            <input type="hidden" name="error_url" value={{error_url}} />
+            <input type="hidden" name="checksum" value={{checksum}} />
+
+            <input id="submit" type="button" value="BUY" name="pay" />
           </form>
           <div class="emptyspace"></div>
           <a href="/home">Back to browsing</a>
