@@ -208,7 +208,7 @@ def gameSales(request):
 @login_required
 @group_required('Players')
 def pay(request, game_id):
-	if "buy" in request.POST:
+	if "pay" in request.POST:
 		game = Game.objects.get(pk = id)
 		buyer = request.user
 		payment = Payment(buyer, game, str(datetime.now()))
@@ -217,6 +217,9 @@ def pay(request, game_id):
 		amount = game.price
 		success_url = payment.get_success_url()
 		cancel_url = payment.get_cancel_url()
+		error_url = payment.get_error_url()
 		checksumstr = "pid={}&sid={}&amount={}&token={}".format(pid, sid, amount, "e9abd406499c46c34f457b17b9c97a2b")
 		m = md5(checksumstr.encode("ascii"))
 		checksum = m.hexdigest()
+		params = {"pid": pid,'sid' :sid,'amount': amount, "success_url": success_url, "cancel_url": cancel_url, "error_url": error_url, "checksum": checksum}
+		return render(request, params)
