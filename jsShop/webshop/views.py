@@ -223,3 +223,30 @@ def pay(request, game_id):
 		checksum = m.hexdigest()
 		params = {"pid": pid,'sid' :sid,'amount': amount, "success_url": success_url, "cancel_url": cancel_url, "error_url": error_url, "checksum": checksum}
 		return render(request, 'webshop/game.html', params)
+
+@login_required
+@group_required('Players')
+def handle_pay(request):
+	if request.method == 'GET':
+		pid = request.GET['pid']
+        ref = request.GET['ref']
+        result = request.GET['result']
+        checksum = request.GET['checksum']
+        sid = "jsShop"
+        secret_key = "e9abd406499c46c34f457b17b9c97a2b"
+
+        checksumstr = "pid={}&ref={}&result={}&token={}".format(pid, ref, result, secret_key)
+        m = md5(checksumstr.encode("ascii"))
+		checksum2 = m.hexdigest()
+
+		if(checksum == checksum2):
+			#success
+		else:
+			#cancel
+
+
+
+
+
+
+
