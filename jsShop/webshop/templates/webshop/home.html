@@ -39,6 +39,22 @@
     </div>
     <div id="browse-games">
       <p>Browse games</p><br/>
+
+      <select>
+        <option value="title">title</option>
+        <option value="tag">tag</option>
+        <option value="price">price</option>
+        <option value="author">author</option>
+      </select>
+      <p>Click on the table header to sort the table.</p>
+ 
+    <tr>
+      <th><a href="?order=title">Name</a></th>
+      <th><a href="?order=tag">Category</a></th>
+      <th><a href="?order=price">Price</a></th>
+      <th><a href="?order=author">Developer</a></th>
+    </tr>
+     <table class="table table-bordered">
       <div id="game-list">
         {% for g in games %}
           <div id="game-instance">
@@ -47,6 +63,12 @@
               <figcaption>
                 <a href="/game/{{ g.id }}">
                   {{ g.title }}
+                  <br><br>
+                  {{ g.tag }}
+                  <br><br>
+                  {{ g.price }}
+                  <br><br>
+                  {{ g.author }}
                 </a>
               </figcaption>
             </a>

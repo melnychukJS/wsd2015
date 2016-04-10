@@ -92,11 +92,11 @@ def user(request):
 
 @login_required
 def home(request):
-	games = Game.objects.all()
+	order = request.GET.get('order', 'title')
+	games = Game.objects.all().order_by(order)
 	user1=request.user
 	game_list=list ()
 	payments = Payment.objects.filter(buyer=user1).values_list('game', flat=True) # quering the game the user has bought
-	#payments1 = payments[0]
 	for pay in payments:
 		g= Game.objects.get(id=int(pay))
 		game_list.append(g)
