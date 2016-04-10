@@ -106,7 +106,7 @@ def home(request):
 @login_required
 def game(request, id):
 	temp = Game.objects.get(id=int(id))
-	return render_to_response('webshop/game.html',{'temp':temp})
+	return render(request, 'webshop/game.html',{'temp':temp})
 
 @login_required
 def play(request, id):
@@ -205,9 +205,9 @@ def gameSales(request):
 # Buy a new game
 @login_required
 @group_required('Players')
-def pay(request, game_id):
+def pay(request, id):
 	if request.method == 'POST':
-		game = Game.objects.get(id=int(id))
+		game = Game.objects.get(pk = id)
 		buyer = request.user
 		payment = Payment(buyer, game, str(datetime.now()))
 		pid = payment.id
@@ -220,7 +220,7 @@ def pay(request, game_id):
 		m = md5(checksumstr.encode("ascii"))
 		checksum = m.hexdigest()
 		params = {"pid": pid, "sid" :sid, "amount": amount, "success_url": success_url, "cancel_url": cancel_url, "error_url": error_url, "checksum": checksum}
-		return render(request, 'workshop/pay.html', params)
+		return render(request, 'webshop/pay.html', params)
 
 @login_required
 @group_required('Players')
