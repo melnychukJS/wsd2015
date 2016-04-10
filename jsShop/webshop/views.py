@@ -15,7 +15,6 @@ from datetime import datetime
 from hashlib import md5
 from django.contrib import messages
 
-
 def register(request):
 	if request.method == 'POST':
 		form = RegisterForm(request.POST)
@@ -203,13 +202,12 @@ def gameSales(request):
 		params = {"game_title": request.POST['view_sales_of'],'price' :price,'sales': sales, "title":title,  "sold": sold, "time_list": time_list, 'gain':gain}
 		return render(request, 'webshop/gamesales.html', params)
 
-
 # Buy a new game
 @login_required
 @group_required('Players')
 def pay(request, game_id):
 	if request.method == 'POST':
-		game = Game.objects.get(pk = id)
+		game = Game.objects.get(id=int(id))
 		buyer = request.user
 		payment = Payment(buyer, game, str(datetime.now()))
 		pid = payment.id
@@ -221,32 +219,24 @@ def pay(request, game_id):
 		checksumstr = "pid={}&sid={}&amount={}&token={}".format(pid, sid, amount, "e9abd406499c46c34f457b17b9c97a2b")
 		m = md5(checksumstr.encode("ascii"))
 		checksum = m.hexdigest()
-		params = {"pid": pid,'sid' :sid,'amount': amount, "success_url": success_url, "cancel_url": cancel_url, "error_url": error_url, "checksum": checksum}
-		return render(request, 'webshop/game.html', params)
+		params = {"pid": pid, "sid" :sid, "amount": amount, "success_url": success_url, "cancel_url": cancel_url, "error_url": error_url, "checksum": checksum}
+		return render(request, 'workshop/pay.html', params)
 
 @login_required
 @group_required('Players')
 def handle_pay(request):
 	if request.method == 'GET':
 		pid = request.GET['pid']
-        ref = request.GET['ref']
-        result = request.GET['result']
-        checksum = request.GET['checksum']
-        sid = "jsShop"
-        secret_key = "e9abd406499c46c34f457b17b9c97a2b"
+		ref = request.GET['ref']
+		result = request.GET['result']
+		checksum = request.GET['checksum']
+		sid = "jsShop"
+		secret_key = "e9abd406499c46c34f457b17b9c97a2b"
 
-        checksumstr = "pid={}&ref={}&result={}&token={}".format(pid, ref, result, secret_key)
-        m = md5(checksumstr.encode("ascii"))
+		checksumstr = "pid={}&ref={}&result={}&token={}".format(pid, ref, result, secret_key)
+		m = md5(checksumstr.encode("ascii"))
 		checksum2 = m.hexdigest()
-
-		if(checksum == checksum2):
+		#if(checksum == checksum2):
 			#success
-		else:
+		#else:
 			#cancel
-
-
-
-
-
-
-
