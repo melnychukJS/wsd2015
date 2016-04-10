@@ -33,7 +33,7 @@ urlpatterns = [
 	url(r'^edit-profile',views.edit_user_profile),
 	#url(r'^gamesales/(?P<id>[0-9])/$', views.gameSales),
 	url(r'^games/sales/$', views.gameSales),
-
+	url(r'^pay/(?P<id>[0-9])/$', views.pay),
 
 
 ]
