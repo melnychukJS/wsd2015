@@ -236,7 +236,9 @@ def handle_pay(request):
 		checksumstr = "pid={}&ref={}&result={}&token={}".format(pid, ref, result, secret_key)
 		m = md5(checksumstr.encode("ascii"))
 		checksum2 = m.hexdigest()
-		#if(checksum == checksum2):
-			#success
-		#else:
-			#cancel
+		if(checksum == checksum2):
+			payment = Payment.objects.get(pk = pid)
+			payment.save()
+			return (request, 'webshop/success.html', payment.game)
+		else:
+			return (request, 'webshop/error.html')
