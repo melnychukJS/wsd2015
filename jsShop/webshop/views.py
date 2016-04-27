@@ -242,3 +242,8 @@ def handle_pay(request):
 			return (request, 'webshop/success.html', payment.game)
 		else:
 			return (request, 'webshop/error.html')
+
+@login_required
+@group_required('Players')
+def cancel_pay(request):
+	return (request, 'webshop/cancel.html')
