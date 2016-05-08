@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User, Group, Permission
-
+from datetime import datetime
 
 class UserProfile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -43,19 +43,23 @@ class Leaderboard(models.Model):
 	score = models.PositiveIntegerField()
 
 class Payment(models.Model):
+	STATUS = (
+        ('success', 'success'),
+        ('pending', 'pending'),
+    )
 	buyer = models.ForeignKey(User)
 	game = models.ForeignKey(Game)
-	time = models.DateTimeField(auto_now = False)
-	def _init_(self, buyer, game, time):
+	time = models.DateTimeField(default=datetime.now, blank=True)
+	status = models.CharField(max_length = 255, choices = STATUS, default = 'pending')
+	def create(self, buyer, game):
 		self.buyer = buyer
 		self.game = game
-		self.time = time
 	def get_success_url(self):
-		return 'webshop/home.html'
+		return 'success'
 	def get_error_url(self):
-		return 'webshop/home.html'
+		return 'error'
 	def get_cancel_url(self):
-		return 'webshop/home.html'
+		return 'cancel'
 
 class Save(models.Model):
 	player = models.ForeignKey(User)

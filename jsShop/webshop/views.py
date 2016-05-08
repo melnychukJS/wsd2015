@@ -11,7 +11,6 @@ from django.core.context_processors import csrf
 from django.views.generic import RedirectView
 from django.shortcuts import redirect
 from django.db.models import Count
-from datetime import datetime
 from hashlib import md5
 from django.contrib import messages
 
@@ -208,14 +207,16 @@ def gameSales(request):
 def pay(request, id):
 	if request.method == 'POST':
 		game = Game.objects.get(pk = id)
+		print "Game ID: " + id
 		buyer = request.user
-		payment = Payment(buyer, game, str(datetime.now()))
-		pid = payment.id
+		payment = Payment.create(buyer, game)
+		payment.save()
+		pid = str(payment.id)
 		sid = "jsShop"
 		amount = game.price
-		success_url = payment.get_success_url()
-		cancel_url = payment.get_cancel_url()
-		error_url = payment.get_error_url()
+		success_url = pid + "/" + payment.get_success_url()
+		cancel_url = id + "/" + payment.get_cancel_url()
+		error_url = pid + "/" + payment.get_error_url()
 		checksumstr = "pid={}&sid={}&amount={}&token={}".format(pid, sid, amount, "e9abd406499c46c34f457b17b9c97a2b")
 		m = md5(checksumstr.encode("ascii"))
 		checksum = m.hexdigest()
@@ -224,7 +225,7 @@ def pay(request, id):
 
 @login_required
 @group_required('Players')
-def handle_pay(request):
+def handle_pay(request, id):
 	if request.method == 'GET':
 		pid = request.GET['pid']
 		ref = request.GET['ref']
@@ -232,18 +233,25 @@ def handle_pay(request):
 		checksum = request.GET['checksum']
 		sid = "jsShop"
 		secret_key = "e9abd406499c46c34f457b17b9c97a2b"
-
 		checksumstr = "pid={}&ref={}&result={}&token={}".format(pid, ref, result, secret_key)
 		m = md5(checksumstr.encode("ascii"))
 		checksum2 = m.hexdigest()
 		if(checksum == checksum2):
-			payment = Payment.objects.get(pk = pid)
-			payment.save()
-			return (request, 'webshop/success.html', payment.game)
+			if(payment_exists(pid) == False):
+				payment = Payment.objects.get(pk = id)
+				payment.status = 'success'
+				return render(request, 'webshop/success.html', payment.id)
 		else:
-			return (request, 'webshop/error.html')
+			return render(request, 'webshop/error.html')
 
 @login_required
 @group_required('Players')
-def cancel_pay(request):
-	return (request, 'webshop/cancel.html')
+def cancel_pay(request, id):
+	payment.status = 'pending'
+	return render(request, 'webshop/cancel.html')
+
+def payment_exists(pid):
+	if (Payment.objects.filter(pk = pid, status = 'success').exists()):
+		return True
+	else:
+		return False

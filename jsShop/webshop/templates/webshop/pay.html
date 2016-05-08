@@ -6,16 +6,15 @@
 
 	<form action="http://payments.webcourse.niksula.hut.fi/pay/" method="POST">
 	   	<input type="hidden" name="pid" value="{{pid}}" />
-      	<input type="hidden" name="sid" value="{{sid}}" />
-      	<input type="hidden" name="amount" value="{{amount}}" />
-       	<input type="hidden" name="success_url" value="{{success_url}}" />
-   		<input type="hidden" name="cancel_url" value="{{cancel_url}}" />
-     	<input type="hidden" name="error_url" value="{{error_url}}" />
+      <input type="hidden" name="sid" value="{{sid}}" />
+      <input type="hidden" name="amount" value="{{amount}}" />
+      <input type="hidden" name="success_url" value="http://{{ pid }}/pay/{{success_url}}" />
+   		<input type="hidden" name="cancel_url" value="http://{{ pid}}/pay/{{cancel_url}}" />
+     	<input type="hidden" name="error_url" value="http://{{ pid }}/pay/{{error_url}}" />
      	<input type="hidden" name="checksum" value="{{checksum}}" />
 
      	<h1>Payment</h1>
-     	<p>You are about to pay {{amount}}€ to {{sid}}.</p>	
-     	<input type="submit" value="Cancel" name="cancel_pay"/>
+     	<p>Click "Accept" to proceed to payment</p>	
      	<input type="submit" value="Accept" name="handle_pay"/>
 	</form>
 
