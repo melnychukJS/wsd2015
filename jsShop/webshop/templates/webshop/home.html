@@ -26,7 +26,7 @@
               <a href="/game/{{ g.id }}">
                 <img src="{{ g.picture }}"  style="width:150px;height:150px">
                 <figcaption>
-                  <a href="/game/{{ g.id }}">
+                  <a href="/play/{{ g.id }}">
                     {{ g.title }}
                   </a>
                 </figcaption>
@@ -40,14 +40,14 @@
     <div id="browse-games">
       <p>Browse games</p><br/>
 
-      <select>
+      <!--<select>
         <option value="title">title</option>
         <option value="tag">tag</option>
         <option value="price">price</option>
         <option value="author">author</option>
-      </select>
-      <p>Click on the table header to sort the table.</p>
- 
+      </select>-->
+      <p>Click on the header to sort.</p>
+
     <tr>
       <th><a href="?order=title">Name</a></th>
       <th><a href="?order=tag">Category</a></th>

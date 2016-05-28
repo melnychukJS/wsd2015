@@ -35,5 +35,6 @@ urlpatterns = [
 	url(r'^games/sales/$', views.gameSales),
 	url(r'^pay/(?P<id>[0-9])/$', views.pay),
 	url(r'^pay/(?P<id>[0-9])/success' , views.handle_pay),
-	url(r'^pay/(?P<id>[0-9])/cancel', views.cancel_pay), 
+	url(r'^pay/(?P<id>[0-9])/cancel', views.cancel_pay),
+	url(r'^savedState/(?P<id>[0-9])', views.savedState),
 ]

@@ -4,7 +4,7 @@ from django import forms
 from django.shortcuts import render, get_object_or_404, get_list_or_404,render_to_response
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db import models
-from .models import User, Game, Leaderboard, Payment
+from .models import User, Game, Leaderboard, Payment, Save
 from django.template import RequestContext, loader
 from webshop.forms import RegisterForm, AddGameForm, EditGameForm
 from django.core.context_processors import csrf
@@ -61,11 +61,11 @@ def developer(request):
 
 	#	temp=Game.objects.get(title=title)
 		#temp1=Game.objects.filter(title=temp).
-		#no = Payment.objects.filter(game=game).count
+		#no = Payment.objects.filter(game=game).countmodels
 		#no_list.extend(list(no)
 		no_list.append(no)
 	#no=5
-	#no=Game.objects.get(title=string(title))	
+	#no=Game.objects.get(title=string(title))
 	return render(request, 'webshop/developer.html', {'games': games, 'no_list':no_list})
 
 
@@ -109,10 +109,10 @@ def game(request, id):
 
 @login_required
 def play(request, id):
-	usr=request.user 
+	usr=request.user
 	temp = Game.objects.get(id=int(id))
 	perm = Payment.objects.filter(game=temp, buyer=usr).exists()  # user can play only if he has bought the game
-	if not perm: 
+	if not perm:
 		messages.error(request, "You have to buy the game in order to play it! :(")  # we need to create a redirection here
 	else:
 		return render_to_response('webshop/play.html',{'temp':temp})
@@ -193,7 +193,7 @@ def gameSales(request):
 		price = g_price['price']
 		sales = Payment.objects.filter(game=g).values()
 		sold = len(sales)
-		gain = sold * price 
+		gain = sold * price
 		time_list = list()
 		time_format = '%d-%m-%Y %H:%M:%S'
 		for i in range(0, sold):
@@ -207,7 +207,7 @@ def gameSales(request):
 def pay(request, id):
 	if request.method == 'POST':
 		game = Game.objects.get(pk = id)
-		print "Game ID: " + id
+		print("Game ID: " + id)
 		buyer = request.user
 		payment = Payment.create(buyer, game)
 		payment.save()
@@ -255,3 +255,18 @@ def payment_exists(pid):
 		return True
 	else:
 		return False
+
+def savedState(request, id):
+	if request.method == "POST":
+		game_state = Save()
+		game_state.player = request.user
+		game_state.game = Game.objects.get(pk=id)
+		game_state.game_state = request.POST["data"]
+		game_state.save()
+		return HttpResponse(request.POST)
+
+	game = Game.objects.get(pk=id)
+	state = Save.objects.filter(game = game, player = request.user).all()
+	if state.count() == 0:
+		return HttpResponse("error")
+	return HttpResponse(state[0].game_state)
